@@ -1,0 +1,15 @@
+---
+- include: elasticsearch-node01.yml
+    when: ansible_default_ipv4['address'] == "10.3.3.231"
+
+- include: elasticsearch-node02.yml
+    when: ansible_default_ipv4['address'] == "10.3.3.232"
+
+- include: elasticsearch-node03.yml
+    when: ansible_default_ipv4['address'] == "10.3.3.233"
+     
+- include: logstash.yml
+    when: ansible_default_ipv4['address'] == "10.3.3.231"
+
+- include: kibana.yml
+    when: ansible_default_ipv4['address'] == "10.3.3.231"
