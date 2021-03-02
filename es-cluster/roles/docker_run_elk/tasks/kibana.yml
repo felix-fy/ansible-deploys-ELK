@@ -1,0 +1,21 @@
+---
+- name: create kibana config directory
+  file:
+    path: /opt/docker/kibana/config
+    state: directory
+
+- name: copy config file to remote server
+  copy:
+    src: "kibana.yml"
+    dest: "/opt/docker/kibana/config/kibana.yml"
+
+- name: run kibana container
+  docker_container:
+    name: "kibana"
+    restart_policy: always
+    recreate: yes
+    image: "{{ container_image }}"
+    ports:
+     - "5601:5601"
+    volumes:
+     - "/opt/docker/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml"
